@@ -11,11 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -28,6 +32,7 @@ public class UploadingPage extends JFrame {
 	private JTextField tfPrice;
 	private JTextField tefDescription;
 	private JTextField tfSearch;
+	BufferedImage img = null;
 
 	/**
 	 * Launch the application.
@@ -131,7 +136,7 @@ public class UploadingPage extends JFrame {
 		
 		//text field for name
 		txfName = new JTextField();
-		txfName.setFont(new Font("±¼¸²", Font.PLAIN, 20));
+		txfName.setFont(new Font("êµ´ë¦¼", Font.PLAIN, 20));
 		txfName.setColumns(10);
 		txfName.setBounds(89, 154, 349, 36);
 		contentPane.add(txfName);
@@ -144,7 +149,7 @@ public class UploadingPage extends JFrame {
 		
 		//text field for setting price
 		tfPrice = new JTextField();
-		tfPrice.setFont(new Font("±¼¸²", Font.PLAIN, 20));
+		tfPrice.setFont(new Font("êµ´ë¦¼", Font.PLAIN, 20));
 		tfPrice.setColumns(10);
 		tfPrice.setBounds(89, 202, 349, 36);
 		contentPane.add(tfPrice);
@@ -157,11 +162,16 @@ public class UploadingPage extends JFrame {
 		
 		//text field for description
 		tefDescription = new JTextField();
-		tefDescription.setFont(new Font("±¼¸²", Font.PLAIN, 20));
+		tefDescription.setFont(new Font("êµ´ë¦¼", Font.PLAIN, 20));
 		tefDescription.setColumns(10);
 		tefDescription.setBounds(27, 296, 411, 221);
 		contentPane.add(tefDescription);
 	
+		//#label for preview image
+		JLabel preView1 = new JLabel("PreView");
+		preView1.setBounds(468, 125, 321, 338);
+		contentPane.add(preView1);
+
 		//button for uploading photo
 		JButton btnPhoto = new JButton("Photo");
 		btnPhoto.addActionListener(new ActionListener() {
@@ -172,6 +182,12 @@ public class UploadingPage extends JFrame {
 				if(openvalue == JFileChooser.APPROVE_OPTION){ //click open button
 					String imagepath = fileChooser.getSelectedFile().toString();
 					System.out.println(imagepath);
+					try {
+						img = ImageIO.read(new File(imagepath));
+						preView1.setIcon(new ImageIcon(img));
+					} catch (IOException e) {
+
+					}
 					
 				}
 				else if (openvalue == JFileChooser.CANCEL_OPTION) { //click cancel button
@@ -184,11 +200,6 @@ public class UploadingPage extends JFrame {
 		btnPhoto.setBounds(333, 255, 105, 27);
 		contentPane.add(btnPhoto);
 		
-		//label for preview image
-		JLabel lblPreview = new JLabel();
-		lblPreview.setIcon(new ImageIcon(imagepath));
-		lblPreview.setBounds(468, 125, 321, 338);
-		contentPane.add(lblPreview);
 
 		//buttons for calling main page
 		JButton btnMain = new JButton("MAIN");
@@ -199,7 +210,6 @@ public class UploadingPage extends JFrame {
 				setVisible(false);
 			}
 		});
-		
 		
 		//button for main
 		btnMain.setForeground(new Color(153, 0, 0));
@@ -226,11 +236,10 @@ public class UploadingPage extends JFrame {
 		//label for copyright
 		JLabel label = new JLabel("copyright@\u30AB-\u30E0\u30C6\u30AF");
 		label.setForeground(new Color(153, 153, 153));
-		label.setFont(new Font("±¼¸²", Font.BOLD | Font.ITALIC, 13));
+		label.setFont(new Font("êµ´ë¦¼", Font.BOLD | Font.ITALIC, 13));
 		label.setBounds(654, 519, 154, 24);
 		contentPane.add(label);
 		
 	}
-	
 	
 }
